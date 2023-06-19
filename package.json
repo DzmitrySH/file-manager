@@ -1,0 +1,20 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "The task is to implement File-Manager",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DzmitrySH/file-manager.git"
+  },
+  "author": "DzmitrySH",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DzmitrySH/file-manager/issues"
+  },
+  "homepage": "https://github.com/DzmitrySH/file-manager#readme"
+}
