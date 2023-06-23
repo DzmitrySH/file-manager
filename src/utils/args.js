@@ -7,4 +7,4 @@ export const argumentArgs = () => {
           args[key] = value;
       }
   return args;
-};alue
+};
