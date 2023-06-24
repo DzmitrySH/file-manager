@@ -7,11 +7,8 @@ export const decompress = async (workDir, inputDir, destDir) => {
     const uzip = createBrotliDecompress();
     const readerStream = createReadStream(await absPath(workDir, inputDir));
     const writerStream = createWriteStream(await absPath(workDir, destDir));
-
     readerStream.pipe(uzip).pipe(writerStream);
   } catch (error) {
-    console.log('Operation failed');
+
   }
-
-
 }

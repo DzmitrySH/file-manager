@@ -7,9 +7,8 @@ export const compress = async (workDir, inputDir, destDir) => {
     const gzip = createBrotliCompress();
     const readerStream = createReadStream(await absPath(workDir, inputDir));
     const writerStream = createWriteStream(await absPath(workDir, destDir));
-
     readerStream.pipe(gzip).pipe(writerStream);
   } catch (error) {
-    console.log('Operation failed');
+
   }
 }
