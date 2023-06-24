@@ -1,28 +1,29 @@
 import { createInterface } from "readline";
 import { EOL, homedir } from "os";
 import command from "./dist/index.js";
+import { argumentArgs } from "./utils/args.js"
 
-const username = getArguments()[0].value;
-console.info(`Welcome to the File Manager, ${username}!`);
+const username = argumentArgs()[0].value;
+console.info(`Welcome to the File Manager, ${username ? username : "user"}!`);
 
 const readline = createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-let oneDir = homedir();
+let currDir = homedir();
 
-export const start = () => {
-  readline.question("You are currently in " + oneDir + EOL + ">",
+const start = () => {
+  readline.question("You are currently in " + currDir + EOL + ">",
     async (input) => {
       if (input === ".exit") {
         process.exit();
       }
       const [cmd, ...args] = input.split(" ");
       if (Object.keys(command).includes(cmd)) {
-        const result = await command[cmd](oneDir, ...args);
-        if (result?.oneDir) {
-          oneDir = result.oneDir;
+        const result = await command[cmd](currDir, ...args);
+        if (result?.currDir) {
+          currDir = result.currDir;
         }
         if (result?.data) {
           console[result.type || "info"](result.data);
@@ -38,7 +39,9 @@ export const start = () => {
   );
 };
 
+start();
+
 process.on("exit", () => {
-  console.info(`Thank you for using File Manager, ${username}!`);
+  console.info(`Thank you for using File Manager, ${username ? username : "user"}!`);
   process.exit();
 });

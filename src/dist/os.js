@@ -26,3 +26,5 @@ export const osInfo = async (args) => {
       break;
   }
 }
+
+export default { osInfo }

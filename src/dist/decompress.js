@@ -1,6 +1,6 @@
-import { createBrotliDecompress } from 'node:zlib';
+import { createBrotliDecompress } from "node:zlib";
 import { createReadStream, createWriteStream } from "node:fs";
-import { absPath } from './utils/fs';
+import { absPath } from "../utils/fs.js";
 
 export const decompress = async (workDir, inputDir, destDir) => {
   try {
