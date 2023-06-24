@@ -12,6 +12,4 @@ export const compress = async (workDir, inputDir, destDir) => {
   } catch (error) {
     console.log('Operation failed');
   }
-
-
 }
