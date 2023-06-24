@@ -1,30 +1,26 @@
 import os from "node:os";
 
-export const osInfo = async (args) => {
+export const osInfo = (_, args) => {
   switch (args) {
     case "--EOL":
-        console.log(JSON.stringify(os.EOL));
-      break;
+      return { data: JSON.stringify(os.EOL) };
     case "--cpus":
-        let info = os.cpus()
-        let total = `Total: ${info.length}`;
-        info = info.map(core => `Model: ${core.model} Speed: ${Math.round(core.speed / 1000)} GHz`);
-        info = [total, ...info].join('\n');
-        console.log(info);
-      break;
+      return {
+        data: os.cpus().map((cpu) => ({
+          core: cpu.model,
+          speed: cpu.speed / 1000 + " Ghz",
+        })),
+        type: "table",
+      };
     case "--homedir":
-        console.log(os.homedir());
-      break;
+      return { data: os.homedir() };
     case "--username":
-        console.log(os.userInfo().username);
-      break;
+      return { data: os.userInfo().username };
     case "--architecture":
-        console.log(os.arch());
-      break;
+      return { data: os.arch() };
     default:
-      console.log('Operation failed');
-      break;
+      return { error: "Invalid input" };
   }
 }
 
-export default { osInfo }
+export default { osInfo, }

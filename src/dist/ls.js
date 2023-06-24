@@ -1,15 +1,15 @@
-import { readdir } from "fs/promises";
+import { readdir, stat } from "fs/promises";
+import { join } from "path";
 
 export const ls = async (currentDir) => {
-  let entries = await readdir(currentDir, { withFileTypes: true });
-  let dirsList = [];
-  let filesList = [];
+  const dirsList = await readdir(currentDir);
+  let data = await Promise.all(dirsList.map(async (item) => {
+      const isFile = (await stat(join(currentDir, item))).isFile();
+      return {
+          type: isFile ? "File" : "Directory",
+          name: item,
+      };
+  }));
 
-  for (let entry of entries)
-    if (entry.isFile())
-      filesList.push({"Name": entry[""], "Type": "file"});
-    else if (entry.isDirectory())
-      dirsList.push({"Name": entry[""], "Type": "directory"});
-  const compareTo = (a, b) => a.Name.localeCompare(b.Name);
-  return dirsList.sort(compareTo).concat(filesList.sort(compareTo));
+  return {data, type: "table"}
 };
