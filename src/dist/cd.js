@@ -1,11 +1,8 @@
-import { open, constants } from "fs/promises";
-import path from "path";
+import { stat } from "fs/promises";
+import { absPath } from "../utils/fs.js";
 
 export const cd = async (currDir, newDir) => {
-  let dirPathTo;
-  if (path.isAbsolute(newDir)) dirPathTo = newDir;
-  else dirPathTo = path.normalize(path.join(currDir, newDir));
-  let fileDiscrip = await open(dirPathTo, constants.O_DIRECTORY);
-  await fileDiscrip.close();
-  return dirPathTo;
+    const path = absPath(currDir, newDir);
+    const directory = (await stat(path)).isDirectory();
+    return directory ? {currDir: path} : {error: new Error()};
 };
