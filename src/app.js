@@ -42,6 +42,6 @@ const start = () => {
 start();
 
 process.on("exit", () => {
-  console.info(`Thank you for using File Manager, ${username ? username : "user"}!`);
+  console.info(`Thank you for using File Manager, ${username ? username : "user"}, goodbye!`);
   process.exit();
 });
