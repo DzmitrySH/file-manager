@@ -1,10 +1,10 @@
-import { rm } from "fs/promises";
+import { rm as rmFile } from "fs/promises";
 import { absPath } from "../utils/fs.js";
 
 export const remove = async (inputDir, fileName) => {
-  const dirPath = absPath(inputDir, fileName);
   try {
-    await rm(dirPath);
+    const dirPath = absPath(inputDir, fileName);
+    await rmFile(dirPath);
   } catch (error) {
     return { error: error };
   }
