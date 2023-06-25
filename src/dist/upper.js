@@ -1,5 +1,5 @@
 import { join } from "path";
 
-export const up = (currDir) => {
+export const upper = (currDir) => {
   return { currDir: join(currDir, "..") };
 };

@@ -9,6 +9,6 @@ export const hash = async (inputDir, fileName) => {
     const hashData = createHash("sha256").update(file).digest("hex");
     return {data: hashData};
   } catch (error) {
-
+    return { error: error };
   }
 };

@@ -7,6 +7,6 @@ export const create = async (inputDir, fileName) => {
     const stream = (await open(dirPath, "w+")).createWriteStream();
     stream.close();
   } catch (error) {
-
+    return { error: error };
   }
 };

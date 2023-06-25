@@ -6,6 +6,6 @@ export const remove = async (inputDir, fileName) => {
   try {
     await rm(dirPath);
   } catch (error) {
-
+    return { error: error };
   }
 };

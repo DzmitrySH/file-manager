@@ -9,6 +9,6 @@ export const compress = async (workDir, inputDir, destDir) => {
     const writerStream = createWriteStream(await absPath(workDir, destDir));
     readerStream.pipe(gzip).pipe(writerStream);
   } catch (error) {
-
+      return { error: error };
   }
 }

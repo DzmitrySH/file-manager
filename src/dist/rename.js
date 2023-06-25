@@ -1,17 +1,15 @@
-import { access, rename as renFile } from "fs/promises";
+import { rename as renFile } from "fs/promises";
+import { resolve, parse } from "path";
 import { absPath } from "../utils/fs.js";
 
-export const rename = async (inputDir, wrongName, wellName) => {
-  let incorrectName = absPath(inputDir, wrongName);
-  let correctName = absPath(inputDir, wellName);
-
+export const rename = async (inputDir, oldName, wellName) => {
   try {
-    await access(correctName);
+    const correctName = absPath(inputDir, oldName);
+    const oldCorrectName = resolve(correctName)
+    const { dir } = parse(oldCorrectName)
+    const newName = resolve(dir, wellName)
+    await renFile(correctName, newName);
   } catch (error) {
-  }
-
-  try {
-    await renFile(incorrectName, correctName);
-  } catch (error) {
+    return { error: error };
   }
 };

@@ -1,19 +1,17 @@
-import { createReadStream, createWriteStream, readFile } from "node:fs";
+import { createReadStream, createWriteStream } from "node:fs";
+import { resolve, parse } from "path";
+import { pipeline } from "stream/promises";
 import { absPath } from "../utils/fs.js";
 
 export const copy = async (workDir, inputDir, destDir) => {
   try {
-    const absolutInput = await absPath(workDir, inputDir);
-    const absolutDest = await absPath(workDir, destDir);
-    const readStream = createReadStream(absolutInput, "utf8");
-    const writeStream = createWriteStream(absolutDest, { flags: "wx" });
-    readStream.on('error', () => {
-        console.log("Operation failed");
-      })
-    writeStream.on("error", () => {
-        console.log("Operation failed");
-    });
-    readStream.pipe(writeStream);
+    const absolutInput = absPath(workDir, inputDir);
+    const oldPath = resolve(absolutInput)
+    const { base } = parse(absolutInput)
+    const newPath = resolve(destDir, base)
+    const readStream = createReadStream(oldPath, "utf8");
+    const writeStream = createWriteStream(newPath, { flags: "wx" });
+    await pipeline(readStream, writeStream);
   } catch (error) {
     return { error: error };
   }

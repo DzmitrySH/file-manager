@@ -1,6 +1,6 @@
 import os from "node:os";
 
-export const osInfo = (_, args) => {
+export const osinfo = (_, args) => {
   switch (args) {
     case "--EOL":
       return { data: JSON.stringify(os.EOL) };
@@ -23,4 +23,4 @@ export const osInfo = (_, args) => {
   }
 }
 
-export default { osInfo, }
+export default { osinfo, }
