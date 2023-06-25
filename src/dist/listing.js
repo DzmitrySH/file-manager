@@ -10,6 +10,6 @@ export const listing = async (currentDir) => {
           name: item,
       };
   }));
-
+  data.sort((a, b) => a.type.localeCompare(b.type));
   return {data, type: "table"}
 };
